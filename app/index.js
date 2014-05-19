@@ -17,20 +17,10 @@ var ElementGenerator = yeoman.generators.Base.extend({
     askFor: function () {
         var done = this.async();
 
-        var prompts = [{
-            type: 'list',
-            name: 'solution',
-            message: 'What do you want to use?',
-            choices: ['Polymer', 'X-Tag', 'VanillaJS']
-        }, {
+        var prompts = [ {
             name: 'elementName',
             message: 'What\'s the name of your element?',
             default: 'my-element'
-        }, {
-            type: 'confirm',
-            name: 'lifecycle',
-            message: 'Do you want to include lifecycle callbacks?',
-            default: true
         }];
 
         this.prompt(prompts, function (props) {
@@ -45,13 +35,9 @@ var ElementGenerator = yeoman.generators.Base.extend({
     },
 
     files: function () {
-        var solutionFile = {
-            'Polymer':'src/_polymer.html',
-            'X-Tag':'src/_xtag.html',
-            'VanillaJS':'src/_vanillajs.html'
-        }[this.solution];
-
-        this.copy(solutionFile, this.elementName + '.html');
+        this.copy("src/_polymer.html", this.elementName + '/' + this.elementName + '.html');
+        this.copy("src/_style.css", this.elementName + '/' + this.elementName + '.css');
+        this.copy("src/_js.js", this.elementName + '/' + this.elementName + '.js');
     }
 });
 
